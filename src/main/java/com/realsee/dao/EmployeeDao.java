@@ -19,11 +19,11 @@ public class EmployeeDao {
 
     static {
         employees = new HashMap<>();
-        employees.put(101, new Employee(1001, "AA", "985980971@qq.com", 1, new Department(101, "教学部"), null));
-        employees.put(102, new Employee(1002, "BB", "985980971@qq.com", 1, new Department(101, "市场部"), null));
-        employees.put(103, new Employee(1003, "CC", "985980971@qq.com", 1, new Department(101, "教研部"), null));
-        employees.put(104, new Employee(1004, "DD", "985980971@qq.com", 1, new Department(101, "运行部"), null));
-        employees.put(105, new Employee(1005, "EE", "985980971@qq.com", 1, new Department(101, "教学部"), null));
+        employees.put(1001, new Employee(1001, "AA", "985980971@qq.com", 1, new Department(101, "教学部"), null));
+        employees.put(1002, new Employee(1002, "BB", "985980971@qq.com", 1, new Department(101, "市场部"), null));
+        employees.put(1003, new Employee(1003, "CC", "985980971@qq.com", 1, new Department(101, "教研部"), null));
+        employees.put(1004, new Employee(1004, "DD", "985980971@qq.com", 1, new Department(101, "运行部"), null));
+        employees.put(1005, new Employee(1005, "EE", "985980971@qq.com", 1, new Department(101, "教学部"), null));
     }
 
     public Collection<Employee> getEmployees(){
@@ -42,5 +42,10 @@ public class EmployeeDao {
             employee.setId(initId++);
         }
         employees.put(employee.getId(), employee);
+    }
+
+    public void delete(int id){
+        employees.remove(id);
+        System.out.println(employees.toString());
     }
 }

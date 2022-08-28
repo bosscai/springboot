@@ -42,50 +42,50 @@
 </head>
 
 <body>
-<!--顶部导航栏-->
+
 <div th:replace="~{common/common.html::topbar}"></div>
 
 <div class="container-fluid">
     <div class="row">
-	<!--侧边栏-->
-        <div th:replace="~{common/common.html::sidebar(active='main.html')}"></div>
+        <!--把前面定义的fragment拿到这里用-->
+        <div th:replace="~{common/common.html::sidebar(active='allEmployees.html')}"></div>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <div class="chartjs-size-monitor"
-                 style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-                <div class="chartjs-size-monitor-expand"
-                     style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-                    <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+            <form th:action="@{/updateEmp}" method="post" th:value="emp">
+                <input type="hidden" name="id" th:value="${emp.getId()}">
+                <div class="form-group">
+                    <label>姓名：</label>
+                    <input type="text" th:value="${emp.getId()}" name="name" class="form-control" placeholder="xiaoming" required="">
                 </div>
-                <div class="chartjs-size-monitor-shrink"
-                     style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-                    <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+                <div class="form-group">
+                    <label>电子邮箱：</label>
+                    <input type="email" th:value="${emp.getEmail()}" name="email" class="form-control" placeholder="985980971@qq.com" required="">
                 </div>
-            </div>
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h1 class="h2">Dashboard</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group mr-2">
-                        <button class="btn btn-sm btn-outline-secondary">Share</button>
-                        <button class="btn btn-sm btn-outline-secondary">Export</button>
+                <div class="form-group">
+                    <label>性别：</label>
+                    <div class="form-check form-check-inline">
+                        <input th:checked="${emp.getSex()==1}" class="form-check-input" type="radio" name="sex" value="1">
+                        <label class="form-check-label">男</label>
                     </div>
-                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="feather feather-calendar">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                        </svg>
-                        This week
-                    </button>
+                    <div class="form-check form-check-inline">
+                        <input th:checked="${emp.getSex()==1}" class="form-check-input" type="radio" name="sex" value="0">
+                        <label class="form-check-label">女</label>
+                    </div>
                 </div>
-            </div>
-
-            <canvas class="my-4 chartjs-render-monitor" id="myChart" width="1076" height="454"
-                    style="display: block; width: 1076px; height: 454px;"></canvas>
-
-
+                <div class="form-group">
+                    <label>部门：</label>
+                    <select class="form-control" name="department.id">
+                        <option th:each="item : ${departments}"
+                                th:text="${item.getDepartmentName()}"
+                                th:selected="${item.getId() == emp.getDepartment().getId()}"
+                                th:value="${item.getId()}"/>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>生日：</label>
+                    <input type="text" name="birth" class="form-control" placeholder="1995-03-05" required="">
+                </div>
+                <button type="submit" class="btn btn-primary" >添加</button>
+            </form>
         </main>
     </div>
 </div>
