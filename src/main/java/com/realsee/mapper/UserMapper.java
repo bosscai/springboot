@@ -20,4 +20,6 @@ public interface UserMapper {
     int updateUser(User user);
 
     int deleteUser(int id);
+
+    User login(@Param("name") String username, @Param("password") String password);
 }

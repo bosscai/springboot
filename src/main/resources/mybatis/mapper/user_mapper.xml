@@ -24,7 +24,7 @@
     </insert>
 
     <update id="updateUser" parameterType="com.realsee.pojo.User">
-        update user set name=#{name}, pwd=#{password} where id=#{id};
+        update user set name=#{username}, pwd=#{password} where id=#{id};
     </update>
 
     <delete id="deleteUser" parameterType="_int">
@@ -32,5 +32,10 @@
         from user
         where id=#{id};
     </delete>
+
+  <!--登录校验-->
+    <select id="login" resultMap="userMap">
+        select * from user where name = #{name} and pwd = #{password};
+    </select>
     
 </mapper>

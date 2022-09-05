@@ -1,7 +1,7 @@
 package com.realsee.controller;
 
-import com.realsee.dao.DepartmentDao;
-import com.realsee.dao.EmployeeDao;
+import com.realsee.mapper.DepartmentMapper;
+import com.realsee.mapper.EmployeeMapper;
 import com.realsee.pojo.Department;
 import com.realsee.pojo.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,36 +9,46 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.Collection;
+import java.util.List;
 
 @Controller
 public class EmployeeController {
 
     @Autowired
-    private EmployeeDao employeeDao;
+    private DepartmentMapper departmentMapper;
 
     @Autowired
-    private DepartmentDao departmentDao;
+    private EmployeeMapper employeeMapper;
 
+    /**
+     * 展示所有员工
+     * @param model
+     * @return
+     */
     @RequestMapping("/emps")
     public String list(Model model){
-        Collection<Employee> employees = employeeDao.getEmployees();
+        Collection<Employee> employees = employeeMapper.queryAllEmployees();
         model.addAttribute("employees", employees);
         return "emp/allEmployees";
     }
 
+    /**
+     * 跳转去到添加员工的界面
+     * @param model
+     * @return
+     */
     @GetMapping("/toAdd")
     public String toAdd(Model model){
-        Collection<Department> departments = departmentDao.getDepartments();
+        List<Department> departments = departmentMapper.queryAllDepartment();
         model.addAttribute("departments", departments);
         return "emp/addEmployees";
     }
 
     @PostMapping("/toAdd")
     public String addEmp(Model model, Employee employee){
-        Collection<Department> departments = departmentDao.getDepartments();
-        employeeDao.add(employee);
+        Collection<Department> departments = departmentMapper.queryAllDepartment();
+        employeeMapper.addEmployee(employee);
         System.out.println(employee.toString());
         model.addAttribute("departments", departments);
         return "redirect:/emps";
@@ -46,8 +56,8 @@ public class EmployeeController {
 
     @GetMapping("/toUpdate/{id}")
     public String toUpdate(Model model, @PathVariable("id")Integer id){
-        Employee employee = employeeDao.getEmployeeById(id);
-        Collection<Department> departments = departmentDao.getDepartments();
+        Employee employee = employeeMapper.queryEmployeeById(id);
+        Collection<Department> departments = departmentMapper.queryAllDepartment();
         model.addAttribute("emp", employee);
         model.addAttribute("departments", departments);
         return "emp/updateEmployees";
@@ -55,13 +65,14 @@ public class EmployeeController {
 
     @RequestMapping("/updateEmp")
     public String updateEmp(Employee employee){
-        employeeDao.add(employee);
+        System.out.println(employee);
+        employeeMapper.updateEmployee(employee);
         return "redirect:/emps";
     }
 
     @RequestMapping("/deleteEmp/{id}")
     public String deleteEmp( @PathVariable("id") Integer id){
-        employeeDao.delete(id);
+        employeeMapper.deleteEmployee(id);
         return "redirect:/emps";
     }
 

@@ -8,7 +8,7 @@ spring:
     url: jdbc:mysql://localhost:3306/mybatis
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-#整合mybatis
+#整合mybatis，是将mapper中额Java类与XML文件绑定起来
 mybatis:
   type-aliases-package: com.realsee.pojo
   mapper-locations: classpath:mybatis/mapper/*.xml

@@ -1,7 +1,5 @@
 package com.realsee.controller;
 
-import com.realsee.dao.DepartmentDao;
-import com.realsee.dao.EmployeeDao;
 import com.realsee.mapper.UserMapper;
 import com.realsee.pojo.Department;
 import com.realsee.pojo.Employee;

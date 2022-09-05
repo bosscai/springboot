@@ -5,13 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Controller;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Controller
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Employee {
+public class Employee implements Serializable {
     private Integer id;
     private String name;
     private String email;

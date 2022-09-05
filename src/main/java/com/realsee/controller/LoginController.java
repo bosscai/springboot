@@ -1,5 +1,8 @@
 package com.realsee.controller;
 
+import com.realsee.mapper.UserMapper;
+import com.realsee.pojo.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,12 +13,16 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class LoginController {
 
+    @Autowired
+    private UserMapper mapper;
+
     @RequestMapping("/user/login")
     public String login(
             @RequestParam("username") String username,
             @RequestParam("password") String password,
             Model model, HttpSession session) {
-        if (password.equals("123456")){
+        User user = mapper.login(username, password);
+        if (user != null){
             session.setAttribute("loginUser", username);
             return "dashboard";
         } else {

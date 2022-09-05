@@ -54,20 +54,20 @@
                 <input type="hidden" name="id" th:value="${emp.getId()}">
                 <div class="form-group">
                     <label>姓名：</label>
-                    <input type="text" th:value="${emp.getId()}" name="name" class="form-control" placeholder="xiaoming" required="">
+                    <input type="text" th:value="${emp.getName()}" name="name" class="form-control" required="">
                 </div>
                 <div class="form-group">
                     <label>电子邮箱：</label>
-                    <input type="email" th:value="${emp.getEmail()}" name="email" class="form-control" placeholder="985980971@qq.com" required="">
+                    <input type="email" th:value="${emp.getEmail()}" name="email" class="form-control">
                 </div>
                 <div class="form-group">
                     <label>性别：</label>
                     <div class="form-check form-check-inline">
-                        <input th:checked="${emp.getSex()==1}" class="form-check-input" type="radio" name="sex" value="1">
+                        <input th:checked="${emp.getSex()==1}" class="form-check-input" type="radio" name="sex" th:value="1">
                         <label class="form-check-label">男</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input th:checked="${emp.getSex()==1}" class="form-check-input" type="radio" name="sex" value="0">
+                        <input th:checked="${emp.getSex()==0}" class="form-check-input" type="radio" name="sex" th:value="0">
                         <label class="form-check-label">女</label>
                     </div>
                 </div>
@@ -82,9 +82,9 @@
                 </div>
                 <div class="form-group">
                     <label>生日：</label>
-                    <input type="text" name="birth" class="form-control" placeholder="1995-03-05" required="">
+                    <input type="text" name="birth" class="form-control" th:value="${emp.getBirth()}">
                 </div>
-                <button type="submit" class="btn btn-primary" >添加</button>
+                <button type="submit" class="btn btn-primary">修改</button>
             </form>
         </main>
     </div>

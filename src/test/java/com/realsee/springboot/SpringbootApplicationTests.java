@@ -1,7 +1,11 @@
 package com.realsee.springboot;
 
+import com.realsee.mapper.DepartmentMapper;
+import com.realsee.mapper.EmployeeMapper;
 import com.realsee.mapper.UserMapper;
+import com.realsee.pojo.Department;
 import com.realsee.pojo.Dog;
+import com.realsee.pojo.Employee;
 import com.realsee.pojo.User;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
@@ -60,6 +64,37 @@ class SpringbootApplicationTests {
     public void deleteUser(){
         int deleteUser = mapper.deleteUser(8);
         System.out.println(deleteUser);
+    }
+
+    @Test
+    public void login(){
+        User user = mapper.login("18515429930", "123456");
+        System.out.println(user);
+    }
+
+    @Autowired
+    private EmployeeMapper employeeMapper;
+
+    @Autowired
+    DepartmentMapper departmentMapper;
+    @Test
+    public void allEmployee(){
+        for (Employee employee : employeeMapper.queryAllEmployees()) {
+            System.out.println(employee.toString());
+        }
+    }
+    @Test
+    public void getEmployeeById(){
+        Employee employee = employeeMapper.queryEmployeeById(1003);
+        System.out.println(employee);
+    }
+
+    @Test
+    public void allDepartment(){
+        List<Department> departments = departmentMapper.queryAllDepartment();
+        for (Department item : departments) {
+            System.out.println(item.toString());
+        }
     }
 
 }

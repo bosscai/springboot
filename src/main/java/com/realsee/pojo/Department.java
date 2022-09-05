@@ -3,14 +3,14 @@ package com.realsee.pojo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
+
+import java.io.Serializable;
 
 //@Controller
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Department {
+public class Department implements Serializable {
     private Integer id;
     private String departmentName;
 }

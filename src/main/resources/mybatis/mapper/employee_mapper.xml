@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.realsee.mapper.EmployeeMapper">
+    <cache/>
+
+    <resultMap id="employeeMap" type="com.realsee.pojo.Employee">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="sex" column="sex"/>
+        <result property="birth" column="birth"/>
+        <association property="department" javaType="com.realsee.pojo.Department">
+            <id property="id" column="did"/>
+            <result property="departmentName" column="dname"/>
+        </association>
+
+    </resultMap>
+
+    <select id="queryAllEmployees" resultMap="employeeMap">
+        SELECT e.id, e.`name`, e.email, e.sex, e.birth, d.id did, d.`name` dname
+        FROM employee e,
+             department d
+        WHERE e.departmentId = d.id;
+    </select>
+
+    <select id="queryEmployeeById" parameterType="int" resultMap="employeeMap">
+        SELECT e.id, e.`name`, e.email, e.sex, e.birth, d.id did, d.`name` dname
+        FROM employee e,
+             department d
+        WHERE e.departmentId = d.id
+          and e.id = #{id};
+    </select>
+
+    <insert id="addEmployee" parameterType="com.realsee.pojo.Employee" useGeneratedKeys="true" keyProperty="id">
+        insert into employee(name, email, sex, departmentId, birth)
+        values (#{name}, #{email}, #{sex}, #{department.id}, #{birth});
+    </insert>
+
+    <update id="updateEmployee" parameterType="com.realsee.pojo.Employee">
+        update employee
+        set name=#{name},
+            email=#{email},
+            departmentId=#{department.id},
+            birth=#{birth}
+        where id = #{id};
+    </update>
+
+    <delete id="deleteEmployee" parameterType="_int">
+        delete
+        from employee
+        where id=#{id};
+    </delete>
+    
+</mapper>
